@@ -173,7 +173,8 @@ def assemble_experiment_temp_dir(config):
             shutil.copytree(src, dst_filepath)
 
     # Copy Heroku files
-    heroku_files = ["Procfile", "runtime.txt"]
+    # heroku_files = ["Procfile", "runtime.txt"]
+    heroku_files = ["Procfile"]
     for filename in heroku_files:
         src = os.path.join(dallinger_root, "heroku", filename)
         shutil.copy(src, os.path.join(dst, filename))
