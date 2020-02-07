@@ -221,8 +221,8 @@ class AssignmentSubmitted(WorkerEvent):
 
         if not self.data_is_ok():
             self.fail_data_check()
-            if self.experiment.available_networks():
-                self.experiment.recruiter.recruit(n=1)
+            # if self.experiment.pending_recruitments() == 2:
+            #     self.experiment.recruiter.recruit(n=2)
 
             return
 
@@ -240,8 +240,8 @@ class AssignmentSubmitted(WorkerEvent):
             self.experiment.recruit()
         else:
             self.fail_submission()
-            if self.experiment.available_networks():
-                self.experiment.recruiter.recruit(n=1)
+            # if self.experiment.pending_recruitments() == 2:
+            #     self.experiment.recruiter.recruit(n=2)
 
     def is_eligible(self, particpant):
         eligible_statuses = ("working", "overrecruited", "returned", "abandoned")
