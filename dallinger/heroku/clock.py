@@ -44,7 +44,7 @@ def run_check(participants, config, reference_time):
 @scheduler.scheduled_job("interval", minutes=0.5)
 def perform_supervision_tasks():
     """Supervision Tasks"""
-    for task in exp.clock_tasks:
+    for task in exp.clock_tasks():
         try:
             task()
         except Exception:
