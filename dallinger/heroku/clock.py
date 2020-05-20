@@ -44,11 +44,12 @@ def run_check(participants, config, reference_time):
 @scheduler.scheduled_job("interval", minutes=0.5)
 def perform_supervision_tasks():
     """Supervision Tasks"""
-    for task in exp.clock_tasks():
+    experiment = exp()
+    for task in experiment.clock_tasks():
         try:
             task()
         except Exception:
-            exp.log("{}".format(Exception), "Clock task failed >> ")
+            experiment.log("{}".format(Exception), "Clock task failed >> ")
 
 def launch():
     config = dallinger.config.get_config()
