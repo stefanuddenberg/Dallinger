@@ -161,6 +161,12 @@ class Experiment(object):
         """
         return []
 
+    def clock_tasks(self):
+        """An experiment may define functions or methods to be executed as
+        background tasks scheduled by the heroku clock process.
+        """
+        return []
+
     @cached_property
     def recruiter(self):
         """Reference to a Recruiter, the Dallinger class that recruits

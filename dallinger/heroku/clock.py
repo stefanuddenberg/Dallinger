@@ -35,15 +35,23 @@ def run_check(participants, config, reference_time):
         recruiter.notify_duration_exceeded(participants, reference_time)
 
 
+# @scheduler.scheduled_job("interval", minutes=0.5)
+# def check_db_for_missing_notifications():
+#     """Check the database for missing notifications."""
+#     config = dallinger.config.get_config()
+#     participants = Participant.query.filter_by(status="working").all()
+#     reference_time = datetime.now()
+
+#     run_check(participants, config, reference_time)
+
 @scheduler.scheduled_job("interval", minutes=0.5)
-def check_db_for_missing_notifications():
-    """Check the database for missing notifications."""
-    config = dallinger.config.get_config()
-    participants = Participant.query.filter_by(status="working").all()
-    reference_time = datetime.now()
-
-    run_check(participants, config, reference_time)
-
+def perform_supervision_tasks():
+    """Supervision Tasks"""
+    for task in exp.clock_tasks():
+        try:
+            task()
+        except Exception:
+            exp.log("{}".format(Exception), "Clock task failed >> ")
 
 def launch():
     config = dallinger.config.get_config()
