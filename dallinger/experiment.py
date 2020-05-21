@@ -161,6 +161,7 @@ class Experiment(object):
         """
         return []
     
+    @property
     def clock_tasks(self):
         """An experiment may define functions or methods to be executed as
         background tasks scheduled by the heroku clock process.

@@ -8,6 +8,7 @@ import dallinger
 from dallinger import recruiters
 from dallinger.models import Participant
 from dallinger.utils import ParticipationTime
+from dallinger import db
 
 
 # Import the experiment.
@@ -47,8 +48,8 @@ def run_check(participants, config, reference_time):
 @scheduler.scheduled_job("interval", minutes=0.5)
 def perform_supervision_tasks():
     """Supervision Tasks"""
-    experiment = exp()
-    for task in experiment.clock_tasks():
+    experiment = exp(db.session)
+    for task in experiment.clock_tasks:
         try:
             task()
         except Exception:
