@@ -478,7 +478,7 @@ class HerokuLocalWrapper(object):
             "local",
             "-p",
             str(port),
-            "web={},worker={}".format(web_dynos, worker_dynos),
+            "web={},worker={},clock=1".format(web_dynos, worker_dynos),
         ]
         try:
             options = {
