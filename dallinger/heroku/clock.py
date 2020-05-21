@@ -6,14 +6,11 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 import dallinger
 from dallinger import recruiters, db
-from dallinger.config import initialize_experiment_package
+from dallinger.config import initialize_experiment_package, get_config, LOCAL_CONFIG
 from dallinger.models import Participant
 from dallinger.utils import ParticipationTime
 import os
-
-
-# Import the experiment.
-exp = dallinger.experiment.load()
+import sys
 
 scheduler = BlockingScheduler()
 
@@ -49,7 +46,7 @@ def run_check(participants, config, reference_time):
 @scheduler.scheduled_job("interval", minutes=0.5)
 def perform_supervision_tasks():
     """Supervision Tasks"""
-    initialize_experiment_package(os.getcwd())
+    exp = dallinger.experiment.load()
     experiment = exp(db.session)
     for task in experiment.clock_tasks:
         try:
