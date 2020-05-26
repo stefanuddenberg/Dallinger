@@ -458,6 +458,16 @@ class Experiment(object):
         """
         self.fail_participant(participant)
 
+    def recruit_on_fail(participant):
+        """Whether to re-recruit a when a participant fails.
+
+        Runs when `participant` has failed one of
+        :func:`~dallinger.experiments.Experiment.attention_check`
+        :func:`~dallinger.experiments.Experiment.attention_check`
+        By default re-recruits.
+        """
+        self.experiment.recruiter.recruit(n=1)
+
     def assignment_abandoned(self, participant):
         """What to do if a participant abandons the hit.
 
