@@ -458,7 +458,7 @@ class Experiment(object):
         """
         self.fail_participant(participant)
 
-    def recruit_on_fail(participant):
+    def recruit_on_fail(self, participant):
         """Whether to re-recruit a when a participant fails.
 
         Runs when `participant` has failed one of
