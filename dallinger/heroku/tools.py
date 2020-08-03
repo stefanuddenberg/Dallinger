@@ -93,8 +93,8 @@ class HerokuApp(HerokuCommandRunner):
         """Creates the heroku app and local git remote. Call this once you're
         in the local repo you're going to use.
         """
-        # cmd = ["heroku", "apps:create", self.name, "--buildpack", "heroku/python"]
-        cmd = ["heroku", "apps:create", self.name, "--buildpack", "https://github.com/heroku/heroku-buildpack-python.git#remove-sqlite"]
+        cmd = ["heroku", "apps:create", self.name, "--buildpack", "heroku/python"]
+        # cmd = ["heroku", "apps:create", self.name, "--buildpack", "https://github.com/heroku/heroku-buildpack-python.git#remove-sqlite"]
         
 
         # If a team is specified, assign the app to the team.
