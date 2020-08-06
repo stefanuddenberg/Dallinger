@@ -43,19 +43,27 @@ def run_check(participants, config, reference_time):
 
 #     run_check(participants, config, reference_time)
 
-@scheduler.scheduled_job("interval", minutes=0.5)
-def perform_supervision_tasks():
-    """Supervision Tasks"""
-    exp = dallinger.experiment.load()
-    experiment = exp(db.session)
-    for task in experiment.clock_tasks:
-        try:
-            task()
-        except Exception:
-            experiment.log("{}".format(Exception), "Clock task failed >> ")
+# @scheduler.scheduled_job("interval", minutes=0.5)
+# def perform_supervision_tasks():
+#     """Supervision Tasks"""
+#     exp = dallinger.experiment.load()
+#     experiment = exp(db.session)
+#     for task in experiment.clock_tasks:
+#         try:
+#             task()
+#         except Exception:
+#             experiment.log("{}".format(Exception), "Clock task failed >> ")
 
 def launch():
     config = dallinger.config.get_config()
     if not config.ready:
         config.load()
+    
     scheduler.start()
+    exp = dallinger.experiment.load()
+    experiment = exp(db.session)
+    for (interval_in_minutes, task) in experiment.clock_tasks:
+        try:
+            scheduler.add_interval_job(task, minutes=interval_in_minutes)
+        except Exception:
+            experiment.log("{}".format(Exception), "Clock task failed >> ")
