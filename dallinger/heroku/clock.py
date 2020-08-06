@@ -59,11 +59,13 @@ def launch():
     if not config.ready:
         config.load()
     
-    scheduler.start()
     exp = dallinger.experiment.load()
     experiment = exp(db.session)
     for (interval_in_minutes, task) in experiment.clock_tasks:
         try:
+            experiment.log("{}".format(Exception), "Clock task try >> ")
             scheduler.add_interval_job(task, minutes=interval_in_minutes)
         except Exception:
             experiment.log("{}".format(Exception), "Clock task failed >> ")
+    
+    scheduler.start()
