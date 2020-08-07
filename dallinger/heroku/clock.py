@@ -61,9 +61,10 @@ def launch():
     
     exp = dallinger.experiment.load()
     experiment = exp(db.session)
-    for (interval_in_seconds, task) in experiment.clock_tasks:
+    for task in experiment.clock_tasks:
         try:
-            scheduler.add_job(task, 'interval', seconds=interval_in_seconds)
+            experiment.log("Adding job", "Clock task >> ")
+            scheduler.add_job(task, 'interval', seconds=30)
         except Exception:
             experiment.log("{}".format(Exception), "Clock task failed >> ")
     
