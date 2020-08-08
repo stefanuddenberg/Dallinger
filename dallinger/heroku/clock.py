@@ -44,7 +44,7 @@ def run_check(participants, config, reference_time):
 
 #     run_check(participants, config, reference_time)
 
-@scheduler.scheduled_job("interval", minutes=0.5)
+@scheduler.scheduled_job("interval", minutes=5)
 def perform_supervision_tasks():
     """Supervision Tasks"""
     exp = dallinger.experiment.load()
