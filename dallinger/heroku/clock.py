@@ -58,4 +58,8 @@ def launch():
     config = dallinger.config.get_config()
     if not config.ready:
         config.load()
+
+    # Import the experiment.
+    dallinger.experiment.load()
+
     scheduler.start()
