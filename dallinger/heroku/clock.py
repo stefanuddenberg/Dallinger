@@ -12,7 +12,6 @@ from dallinger.utils import ParticipationTime
 import os
 import sys
 
-
 scheduler = BlockingScheduler()
 
 
