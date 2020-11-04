@@ -361,6 +361,21 @@ def launch():
                 simple=True,
             )
 
+    # If the experiment defines a collection of redis communication channels,
+    # subscribe the experiment to all channels:
+    try:
+        from dallinger.experiment_server.sockets import chat_backend
+        for experiment_channel in exp.redis_channels:
+            chat_backend.subscribe(exp, experiment_channel)
+    except Exception:
+        return error_response(
+            error_text="Failed to subscribe to chat for channel on launch "
+            + "{}".format(exp.channel)
+            + ", check experiment server log for details",
+            status=500,
+            simple=True,
+        )
+
     message = "\n".join(
         (
             "Initial recruitment list:\n{}".format(

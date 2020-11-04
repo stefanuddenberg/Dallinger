@@ -180,6 +180,13 @@ class Experiment(object):
         return []
 
     @cached_property
+    def redis_channels(self):
+        """Names onf redis channels to create
+        and subscribe to at initial setup.
+        """
+        return []
+
+    @cached_property
     def recruiter(self):
         """Reference to a Recruiter, the Dallinger class that recruits
         participants.
