@@ -5,11 +5,11 @@ from functools import wraps
 import logging
 import os
 import psycopg2
-import redis
 import sys
 import time
 import random
 
+from dallinger.utils import connect_to_redis
 from psycopg2.extensions import TransactionRollbackError
 from sqlalchemy import create_engine
 from sqlalchemy import event
@@ -30,8 +30,7 @@ session = scoped_session(session_factory)
 Base = declarative_base()
 Base.query = session.query_property()
 
-redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
-redis_conn = redis.from_url(redis_url)
+redis_conn = connect_to_redis()
 
 db_user_warning = """
 *********************************************************
